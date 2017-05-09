@@ -65,9 +65,16 @@
 			font-size: .5rem;
 			color: #333;
 		}
+
+		.share-hide {
+			display: none;
+		}
 	</style>
 </head>
 <body>
+	<div class="share-hide">
+		<img src="./images/share-hide.png">
+	</div>
 	<div id="bb" class="bg-one">
 		<div class="time">静静等<span id="dd">10</span>秒</div>
 		<p>美好的<br/>正在发生...</p>
@@ -88,6 +95,21 @@
             s.innerHTML = s.innerHTML -1;
         }
         window.setInterval("run()", 1000);
+        window.onload=function() {
+        		var dataObj; 
+        	   var xmlhttp=new XMLHttpRequest();
+        		  xmlhttp.open("GET","https://zhihu-daily.leanapp.cn/api/v1/last-stories");
+				  xmlhttp.send();
+				  xmlhttp.onreadystatechange=function()
+				  {
+				    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+				    {
+				    	dataObj = JSON.parse(xmlhttp.responseText)['STORIES']['stories'];
+				      	console.log(dataObj);
+				      	console.log(dataObj[0].title);
+				    }
+				  }
+	        }
 	</script>
 </body>
 </html>
